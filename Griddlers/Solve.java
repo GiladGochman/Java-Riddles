@@ -7,6 +7,12 @@ import javax.swing.JTextField;
  * This class specifies class file version 49.0 but uses Java 6 signatures.  Assumed Java 6.
  */
 public class Solve {
+    /**
+     * Overlap technique: for the i-th clue block, find the leftmost possible end position
+     * (pushing all preceding blocks as far left as possible) and the rightmost possible start
+     * position (pushing all following blocks as far right as possible). Any cells in between
+     * those two positions must be filled regardless of the exact placement.
+     */
     public static boolean overlap(ArrayList<Integer> info, JTextField[] db) {
         boolean redbool = false;
         int i = 0;
@@ -129,6 +135,7 @@ public class Solve {
         return redbool;
     }
 
+    // If the number of already-filled black cells equals the sum of all clues, every remaining unknown cell must be empty.
     public static boolean allDone(ArrayList<Integer> info, JTextField[] db) {
         boolean redbool = false;
         if (Solve.countBlacks(db) == Solve.listSum(info)) {
@@ -156,6 +163,7 @@ public class Solve {
         return max;
     }
 
+    // If a single empty gap between two filled/x cells is too narrow to fit even the smallest clue block, mark it as empty (x).
     public static boolean blockAway(ArrayList<Integer> info, JTextField[] db) {
         boolean redbool = false;
         int max = Solve.findListMax(info);
@@ -342,6 +350,8 @@ public class Solve {
         return redbool;
     }
 
+    // If a run of filled cells at the edge of an unknown region exactly matches the next clue,
+    // the cell immediately after that run must be empty (it cannot extend the block further).
     public static boolean markBorders(ArrayList<Integer> info, JTextField[] db) {
         boolean redbool = false;
         int i = 0;
@@ -395,6 +405,8 @@ public class Solve {
         return count == 1;
     }
 
+    // When a filled run whose length exactly matches the largest (and unique) clue is found,
+    // place empty markers on both sides of that run.
     public static boolean markBorderOfBiggest(ArrayList<Integer> info, JTextField[] db) {
         boolean redbool = false;
         int pos1 = -1;

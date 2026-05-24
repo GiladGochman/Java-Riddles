@@ -32,6 +32,8 @@ public class Advanced {
         return ret;
     }
 
+    // If all candidate cells for 'index' in this box share the same row, eliminate 'index' from
+    // that row in the other two boxes. Same logic applied column-wise.
     public static int isLine(Square[][] sq, int BigCol, int BigRow, ArrayList<Point> loc, int index) {
         int ret = 0;
         int col = loc.get((int)0).x;
@@ -57,6 +59,12 @@ public class Advanced {
         return ret;
     }
 
+    /**
+     * For each digit 1-9 in the given 3x3 box:
+     * - If it has exactly one possible cell, assign it there (naked single in box).
+     * - If its possible cells are all in the same row or column, eliminate it from
+     *   the rest of that row/column outside this box (pointing pairs/triples).
+     */
     public static int algorithm(Square[][] sq, int BigCol, int BigRow) {
         int ret = 0;
         int index = 1;

@@ -54,6 +54,7 @@ public class overlap {
         return false;
     }
 
+    // Propagate a placed value: remove it from candidates of every cell in the same row, column, and 3x3 box.
     public static int removeOpions(Square[][] sq, int y, int x) {
         System.out.println("RemoveOptions: " + y + ", " + x);
         int ret = 0;

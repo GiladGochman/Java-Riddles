@@ -148,6 +148,12 @@ extends JFrame {
                 }
             }
 
+            /**
+             * Backtracking solver: starting at cell (i,j) whose value is n, try to place n+1
+             * in each of the six neighbors. If n+1 is a known/pre-filled number it must already
+             * be in one of those neighbors (no choice). If it is unknown, try every empty neighbor
+             * in turn and recurse; undo (via cloning) on failure. Returns null on dead end.
+             */
             public Block[][] recursion(int i, int j, Block[][] blockArray) {
                 int n = blockArray[i][j].getValue();
                 if (n == 61) {
